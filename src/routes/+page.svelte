@@ -1,16 +1,21 @@
 <script lang="ts">
+	let { data } = $props();
+
+	let title = $derived(data.content?.frontmatter.title ?? 'Anceu Coliving');
+	let description = $derived(data.content?.frontmatter.description ?? '');
+	let html = $derived(data.content?.html ?? '<p>Welcome to Anceu Coliving.</p>');
 </script>
 
 <svelte:head>
-	<title>Anceu Coliving | Rural Coliving &amp; Coworking in Galicia, Spain</title>
-	<meta name="description" content="Anceu Coliving is a rural coliving for remote workers in Spain. 1Gbps, coworking space, community dinners. Stays from 15 days." />
+	<title>{title} | Anceu Coliving</title>
+	{#if description}
+		<meta name="description" content={description} />
+	{/if}
 </svelte:head>
 
 <div class="mx-auto max-w-6xl px-4 py-16">
-	<h1 class="text-4xl md:text-5xl font-heading font-bold text-brand-contrast-2 mb-6">
-		Anceu Coliving
-	</h1>
-	<p class="text-lg text-brand-contrast-3 max-w-2xl">
-		Rural coliving and coworking space in Galicia, Spain.
-	</p>
+	<h1 class="text-4xl md:text-5xl font-heading font-bold text-brand-contrast-2 mb-6">{title}</h1>
+	<div class="content prose">
+		{@html html}
+	</div>
 </div>

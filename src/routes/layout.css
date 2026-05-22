@@ -32,3 +32,51 @@ h5,
 h6 {
 	font-family: var(--font-heading);
 }
+
+.content p {
+	margin-bottom: 1em;
+	line-height: 1.7;
+}
+
+.content strong {
+	font-weight: 600;
+}
+
+.content em {
+	font-style: italic;
+}
+
+.content a {
+	color: var(--color-brand-green);
+	text-decoration: underline;
+}
+
+.content a:hover {
+	color: var(--color-brand-green-dark);
+}
+
+.content ul,
+.content ol {
+	margin-bottom: 1em;
+	padding-left: 1.5em;
+}
+
+.content li {
+	margin-bottom: 0.25em;
+	line-height: 1.7;
+}
+
+.content ul {
+	list-style-type: disc;
+}
+
+.content ol {
+	list-style-type: decimal;
+}
+
+.content img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 0.5rem;
+	margin: 1.5em 0;
+}
