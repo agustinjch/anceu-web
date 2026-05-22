@@ -8,5 +8,5 @@
 </svelte:head>
 
 <div class="mx-auto max-w-6xl px-4 py-16">
-	<LanguagePlaceholder path={$page.url.pathname} />
+	<LanguagePlaceholder />
 </div>

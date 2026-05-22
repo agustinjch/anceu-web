@@ -1,4 +1,9 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import { LANGUAGES, localizedPath, type Lang } from '$lib/i18n';
+
+	let { currentLang }: { currentLang: Lang } = $props();
+
 	const socialLinks = [
 		{
 			label: 'Facebook',
@@ -21,16 +26,22 @@
 			svg: '<svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>'
 		}
 	];
+
+	const footerNavLabels: Record<Lang, { privacy: string; newsletter: string; address: string; contact: string }> = {
+		en: { privacy: 'Privacy Policy', newsletter: 'Newsletter', address: 'Address', contact: 'Contact' },
+		es: { privacy: 'Política de Privacidad', newsletter: 'Newsletter', address: 'Dirección', contact: 'Contacto' },
+		gl: { privacy: 'Política de Privacidade', newsletter: 'Newsletter', address: 'Enderezo', contact: 'Contacto' }
+	};
 </script>
 
 <footer class="bg-brand-base border-t border-brand-contrast-3/20 mt-auto">
 	<div class="mx-auto max-w-6xl px-4 py-12">
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 			<div>
-				<h3 class="font-heading text-lg font-semibold text-brand-contrast-2 mb-4">Newsletter</h3>
+				<h3 class="font-heading text-lg font-semibold text-brand-contrast-2 mb-4">{footerNavLabels[currentLang].newsletter}</h3>
 				<p class="text-sm text-brand-contrast-3 mb-4">Signup for news and special offers!</p>
 
-				<h3 class="font-heading text-lg font-semibold text-brand-contrast-2 mb-4">Address</h3>
+				<h3 class="font-heading text-lg font-semibold text-brand-contrast-2 mb-4">{footerNavLabels[currentLang].address}</h3>
 				<p class="text-sm text-brand-contrast-2">
 					Lugar Ramis 8, Anceu. Ponte Caldelas<br />
 					36829, Pontevedra. Spain
@@ -51,14 +62,25 @@
 				</div>
 
 				<div class="mt-6 space-y-2 text-sm">
-					<a href="/privacy-policy-2/" class="block text-brand-contrast-3 hover:text-brand-green transition-colors">
-						Privacy Policy
+					<a href={localizedPath('/privacy-policy-2/', currentLang)} class="block text-brand-contrast-3 hover:text-brand-green transition-colors">
+						{footerNavLabels[currentLang].privacy}
 					</a>
+				</div>
+
+				<div class="mt-3 space-y-1 text-sm">
+					{#each LANGUAGES.filter(l => l.code !== currentLang) as lang}
+						<a
+							href={localizedPath($page.url.pathname, lang.code)}
+							class="block text-brand-contrast-3 hover:text-brand-green transition-colors"
+						>
+							{lang.displayName}
+						</a>
+					{/each}
 				</div>
 			</div>
 
 			<div>
-				<h3 class="font-heading text-lg font-semibold text-brand-contrast-2 mb-4">Contact</h3>
+				<h3 class="font-heading text-lg font-semibold text-brand-contrast-2 mb-4">{footerNavLabels[currentLang].contact}</h3>
 				<div class="space-y-3 text-sm">
 					<a href="tel:+34626943874" class="block text-brand-contrast-2 hover:text-brand-green transition-colors">
 						+34 626 943 874
